@@ -1,0 +1,3 @@
+[submodule "src/Hasmt"]
+	path = src/Hasmt
+	url = https://github.com/phenguin/hasmt
