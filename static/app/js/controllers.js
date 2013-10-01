@@ -13,6 +13,7 @@ angular.module('myApp.controllers', []).
     $scope.tunings = ['standardTuning'];
     $scope.tuning = $scope.tunings[0];
 
+    $scope.response = {};
 
     $scope.updateFretboard = function  () {
         var params = { note : $scope.note,
@@ -23,10 +24,19 @@ angular.module('myApp.controllers', []).
               method : 'GET',
               params : params
         }).success(function (data) {
-            console.log(data);
             $scope.response = data;
         });
 
+    };
+
+    $scope.displayFret = function (i,j) {
+        var val = $scope.response["fret_" + i + "_" + j];
+        if (val) {
+            return val.interval;
+        }
+        else {
+            return " ";
+        }
     };
 
   }]);

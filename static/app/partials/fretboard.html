@@ -29,6 +29,11 @@
 
     <div class="span10">
       <!--Body content-->
+      <table cellspacing='0'>
+          <tr ng-repeat="i in [5,4,3,2,1,0]">
+              <td ng-repeat="j in [0,23] | makeRange">[{{ displayFret(i,j) }}]</td>
+          </tr>
+      </table>
       <p>{{ response }}</p>
 
 
