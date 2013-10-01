@@ -5,11 +5,35 @@
     <meta charset="utf-8" />
 </head>
 <body ng-app>
-    <header>
-    </header>
-    <p>{{ test }}</p> 
-    <footer>
-        
-    </footer>
+
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span2">
+      <!--Sidebar content-->
+
+      Note: 
+      <select ng-model="note" ng-options="n for n in notes">
+      </select>
+
+      Chord Type:
+      <select ng-model="chordType" ng-options="ct for ct in chordTypes">
+      </select>
+
+      Tuning:
+      <select ng-model="tuning" ng-options="t for t in tunings">
+      </select>
+
+      <button ng-click="updateFretboard()">Generate!</button>
+
+    </div>
+
+    <div class="span10">
+      <!--Body content-->
+      <p>{{ response }}</p>
+
+
+    </div>
+  </div>
+</div>
 </body>
 </html>
