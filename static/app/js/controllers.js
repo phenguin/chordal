@@ -1,7 +1,6 @@
 'use strict';
 
 /* Controllers */
-
 angular.module('myApp.controllers', []).
   controller('FretboardCtrl', ['$scope', '$http', function($scope, $http) {
     var domain = "http://localhost:8080";
@@ -37,6 +36,11 @@ angular.module('myApp.controllers', []).
             $scope.response = data;
         });
 
+    };
+
+    $scope.displayFretmarker = function (i,j) {
+        return (i === 2 && _.contains([2,4,6,8], j)) ||
+            (_.contains([1,3], i) && j === 11);
     };
 
     $scope.displayFret = function (i,j) {

@@ -31,7 +31,10 @@
         <table id='mainfretboard' cellspacing='0'>
             <tbody>
             <tr ng-repeat="i in [4,3,2,1,0]">
-                <td ng-repeat="j in [0,14] | makeRange">&nbsp;</td>
+                <td ng-repeat="j in [0,14] | makeRange">                
+                    <div class='fretguidecircle' ng-show="displayFretmarker(i,j)">
+                    </div>
+                </td>
             </tr>
             </tbody>
         </table>
