@@ -1,0 +1,12 @@
+{
+    "libs" : [
+        "browers",
+        "jquery"
+    ],
+    "loadEagerly" : [
+        "./static/app/lib/underscore.js"
+    ],
+    "plugins": {
+        "node": {}
+    }
+}
