@@ -16,7 +16,7 @@
       </select>
 
       Chord Type:
-      <select ng-model="chordType" ng-options="ct for ct in chordTypes">
+      <select ng-model="chordType" ng-options="ct.value as ct.text for ct in chordTypes">
       </select>
 
       Tuning:
@@ -27,15 +27,27 @@
 
     </div>
 
-    <div class="span10">
-      <!--Body content-->
-      <table cellspacing='0'>
-          <tr ng-repeat="i in [5,4,3,2,1,0]">
-              <td ng-repeat="j in [0,23] | makeRange">[{{ displayFret(i,j) }}]</td>
-          </tr>
-      </table>
-      <p>{{ response }}</p>
+    <div id='fretboard'>
+        <table id='mainfretboard' cellspacing='0'>
+            <tbody>
+            <tr ng-repeat="i in [4,3,2,1,0]">
+                <td ng-repeat="j in [0,14] | makeRange">&nbsp;</td>
+            </tr>
+            </tbody>
+        </table>
 
+        <table id='fretclone' cellspacing='0'>
+            <tbody>
+            <tr ng-repeat="i in [5,4,3,2,1,0]">
+                <td ng-repeat="j in [0,15] | makeRange">
+                    <div class='circle' ng-show="displayFret(i,j)">
+                        <div class='interval-text'>{{ getInterval(i,j) }}</div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
     </div>
   </div>

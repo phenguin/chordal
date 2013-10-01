@@ -20,6 +20,14 @@ instance ToJSON ApiResponse where
 chordFromString :: String -> Maybe Chord
 chordFromString s 
     | s == "majorTriad" = Just majorTriad
+    | s == "minorTriad" = Just minorTriad
+    | s == "augTriad" = Just augTriad
+    | s == "dimTriad" = Just dimTriad
+    | s == "maj7chord" = Just maj7chord
+    | s == "dom7chord" = Just dom7chord
+    | s == "min7chord" = Just min7chord
+    | s == "halfdim7chord" = Just halfdim7chord
+    | s == "fulldim7chord" = Just fulldim7chord
     | otherwise = Nothing
 
 tuningFromString :: String -> Maybe Tuning

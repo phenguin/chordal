@@ -8,8 +8,18 @@ angular.module('myApp.controllers', []).
     $scope.test = "Testval";
     $scope.notes = ['A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab'];
     $scope.note = $scope.notes[0];
-    $scope.chordTypes = ['majorTriad'];
-    $scope.chordType = $scope.chordTypes[0];
+    $scope.chordTypes = [
+        { value : 'majorTriad', text : 'Major Triad' },
+        { value : 'minorTriad', text : 'Minor Triad' },
+        { value : 'augTriad', text : 'Augmented Triad' },
+        { value : 'dimTriad', text : 'Diminished Triad' },
+        { value : 'maj7chord', text : 'Major 7th Chord' },
+        { value : 'min7chord', text : 'Minor 7th Chord' },
+        { value : 'dom7chord', text : 'Dominant 7th Chord' },
+        { value : 'halfdim7chord', text : 'Half Diminished Chord' },
+        { value : 'fulldim7chord', text : 'Fully Diminished Chord' }
+    ];
+    $scope.chordType = $scope.chordTypes[0].value;
     $scope.tunings = ['standardTuning'];
     $scope.tuning = $scope.tunings[0];
 
@@ -32,11 +42,20 @@ angular.module('myApp.controllers', []).
     $scope.displayFret = function (i,j) {
         var val = $scope.response["fret_" + i + "_" + j];
         if (val) {
-            return val.interval;
+            return true;
         }
         else {
-            return " ";
+            return false;
         }
     };
 
+    $scope.getInterval = function (i,j) {
+        var val = $scope.response["fret_" + i + "_" + j];
+        if (val) {
+            return val.interval;
+        }
+        else {
+            return false;
+        }
+    };
   }]);
