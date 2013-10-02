@@ -11,8 +11,8 @@
     <div class="span2">
       <!--Sidebar content-->
 
-      Note: 
-      <select ng-model="note" ng-options="n for n in notes">
+      Key: 
+      <select ng-model="note" ng-options="n.value as n.text for n in notes">
       </select>
 
       Chord Type:
@@ -38,6 +38,7 @@
             </tr>
             </tbody>
         </table>
+    
 
         <table id='fretclone' cellspacing='0'>
             <tbody>

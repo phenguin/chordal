@@ -5,8 +5,23 @@ angular.module('myApp.controllers', []).
   controller('FretboardCtrl', ['$scope', '$http', function($scope, $http) {
     var domain = "http://localhost:8080";
     $scope.test = "Testval";
-    $scope.notes = ['A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab'];
-    $scope.note = $scope.notes[0];
+
+    $scope.notes = [
+        { value : 'A', text : 'A' },
+        { value : 'Bb', text : 'B\u266d' },
+        { value : 'C', text : 'C' },
+        { value : 'Db', text : 'D\u266d' },
+        { value : 'D', text : 'D' },
+        { value : 'Eb', text : 'E\u266d' },
+        { value : 'E', text : 'E' },
+        { value : 'F', text : 'F' },
+        { value : 'Gb', text : 'G\u266d' },
+        { value : 'G', text : 'G' },
+        { value : 'Ab', text : 'A\u266d' },
+    ];
+
+    $scope.note = $scope.notes[0].value;
+
     $scope.chordTypes = [
         { value : 'majorTriad', text : 'Major Triad' },
         { value : 'minorTriad', text : 'Minor Triad' },
@@ -18,6 +33,7 @@ angular.module('myApp.controllers', []).
         { value : 'halfdim7chord', text : 'Half Diminished Chord' },
         { value : 'fulldim7chord', text : 'Fully Diminished Chord' }
     ];
+
     $scope.chordType = $scope.chordTypes[0].value;
     $scope.tunings = ['standardTuning'];
     $scope.tuning = $scope.tunings[0];
@@ -56,7 +72,14 @@ angular.module('myApp.controllers', []).
     $scope.getInterval = function (i,j) {
         var val = $scope.response["fret_" + i + "_" + j];
         if (val) {
-            return val.interval;
+            var ret_val;
+            if (val.interval.length === 2) {
+                var res = val.interval[0] === 'b' ? '\u266d' : val.interval[0];
+                ret_val = res + val.interval[val.interval.length - 1];
+            } else {
+                ret_val = val.interval;
+            }
+            return ret_val;
         }
         else {
             return false;
