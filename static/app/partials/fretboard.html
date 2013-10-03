@@ -23,6 +23,13 @@
       <select ng-model="tuning" ng-options="t for t in tunings">
       </select>
 
+      Low Range:
+      <input ng-model="lowRange"></input>
+
+      High Range:
+      <input ng-model="highRange"></input>
+
+      <button ng-click="getVoicing()">Voicing!</button>
       <button ng-click="updateFretboard()">Generate!</button>
 
     </div>

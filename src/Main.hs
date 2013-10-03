@@ -22,6 +22,7 @@ site =
     route [ ("foo", writeBS "bar")
           , ("echo/:echoparam", echoHandler)
           , ("api/chord_notes", chordNotesHandler)
+          , ("api/voicing_in_range", voicingInRangeHandler)
           ] <|>
     dir "static" (serveDirectory "./static")
 
@@ -46,5 +47,23 @@ chordNotesHandler = do
          Nothing -> writeBS $ BS.pack "Failure"
          Just response -> writeJSON response
 
+voicingInRangeHandler :: Snap ()
+voicingInRangeHandler = do
+    noteS <- (liftM . liftM) BS.unpack $ getParam "note"
+    chordTypeS <- (liftM . liftM) BS.unpack $ getParam "chordType"
+    tuningS <- (liftM . liftM) BS.unpack $ getParam "tuning"
+    lowRangeS <- (liftM . liftM) BS.unpack $ getParam "lowRange"
+    highRangeS <- (liftM . liftM) BS.unpack $ getParam "highRange"
+    let mFrets = do
+            tuning <- tuningS >>= tuningFromString
+            note <- noteS >>= readMaybe
+            lowRange <- lowRangeS >>= readMaybe
+            highRange <- highRangeS >>= readMaybe
+            chordType <- chordTypeS >>= chordFromString
+            (return . head) $ voicingsInRange tuning chordType note (FretRange lowRange highRange)
+        mResp = liftM Frets mFrets
+    case trace (show mResp) mResp of
+         Nothing -> writeBS $ BS.pack "Failure"
+         Just response -> writeJSON response
                                 
 

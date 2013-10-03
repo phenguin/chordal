@@ -2,7 +2,7 @@
 
 /* Controllers */
 angular.module('myApp.controllers', []).
-  controller('FretboardCtrl', ['$scope', '$http', function($scope, $http) {
+    controller('FretboardCtrl', ['$scope', '$http', function($scope, $http) {
     var domain = "http://localhost:8080";
     $scope.test = "Testval";
 
@@ -40,17 +40,35 @@ angular.module('myApp.controllers', []).
 
     $scope.response = {};
 
-    $scope.updateFretboard = function  () {
-        var params = { note : $scope.note,
+    $scope.getVoicing = function () {
+        var params = {
+            note : $scope.note,
             chordType : $scope.chordType,
-            tuning : $scope.tuning };
+            tuning : $scope.tuning,
+            lowRange : $scope.lowRange,
+            highRange : $scope.highRange
+        };
 
-        $http({ url : domain + '/api/chord_notes',
+        $http({ url : domain + '/api/voicing_in_range',
               method : 'GET',
               params : params
         }).success(function (data) {
             $scope.response = data;
         });
+
+    };
+
+    $scope.updateFretboard = function  () {
+        var params = { note : $scope.note,
+            chordType : $scope.chordType,
+            tuning : $scope.tuning };
+
+            $http({ url : domain + '/api/chord_notes',
+                  method : 'GET',
+                  params : params
+            }).success(function (data) {
+                $scope.response = data;
+            });
 
     };
 
@@ -76,6 +94,8 @@ angular.module('myApp.controllers', []).
             if (val.interval.length === 2) {
                 var res = val.interval[0] === 'b' ? '\u266d' : val.interval[0];
                 ret_val = res + val.interval[val.interval.length - 1];
+            } else if (val.interval === '1') {
+                ret_val = 'R';
             } else {
                 ret_val = val.interval;
             }
@@ -85,4 +105,4 @@ angular.module('myApp.controllers', []).
             return false;
         }
     };
-  }]);
+}]);
