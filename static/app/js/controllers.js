@@ -35,6 +35,8 @@ angular.module('myApp.controllers', []).
     ];
 
     $scope.chordType = $scope.chordTypes[0].value;
+    $scope.lowRange = 0
+    $scope.highRange = 4
     $scope.tunings = ['standardTuning'];
     $scope.tuning = $scope.tunings[0];
 
@@ -58,6 +60,22 @@ angular.module('myApp.controllers', []).
 
     };
 
+    $scope.parseChord = function () {
+        var params = {
+            chordString : $scope.chordString,
+            tuning : $scope.tuning,
+            lowRange : $scope.lowRange,
+            highRange : $scope.highRange
+        };
+
+        $http({ url : domain + '/api/parse_chord',
+              method : 'GET',
+              params : params
+        }).success(function (data) {
+            $scope.response = data;
+        });
+
+    };
     $scope.updateFretboard = function  () {
         var params = { note : $scope.note,
             chordType : $scope.chordType,
@@ -93,6 +111,7 @@ angular.module('myApp.controllers', []).
             var ret_val;
             if (val.interval.length === 2) {
                 var res = val.interval[0] === 'b' ? '\u266d' : val.interval[0];
+                var res = val.interval[0] === '#' ? '\u266f' : val.interval[0];
                 ret_val = res + val.interval[val.interval.length - 1];
             } else if (val.interval === '1') {
                 ret_val = 'R';

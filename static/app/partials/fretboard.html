@@ -29,8 +29,13 @@
       High Range:
       <input ng-model="highRange"></input>
 
-      <button ng-click="getVoicing()">Voicing!</button>
       <button ng-click="updateFretboard()">Generate!</button>
+        <div>
+            <input ng-model="chordString"></text>
+        </div>
+        <div>      
+            <button ng-click="parseChord()">Voicing!</button>
+        </div>
 
     </div>
 

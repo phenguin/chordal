@@ -11,6 +11,7 @@ import           Interface
 import           Text.Read
 import           Debug.Trace
 import           Hasmt.Fretboard
+import           Hasmt.ChordParser
 import qualified Data.ByteString.Char8 as BS
 
 main :: IO ()
@@ -23,6 +24,7 @@ site =
           , ("echo/:echoparam", echoHandler)
           , ("api/chord_notes", chordNotesHandler)
           , ("api/voicing_in_range", voicingInRangeHandler)
+          , ("api/parse_chord", parseHandler)
           ] <|>
     dir "static" (serveDirectory "./static")
 
@@ -60,6 +62,23 @@ voicingInRangeHandler = do
             lowRange <- lowRangeS >>= readMaybe
             highRange <- highRangeS >>= readMaybe
             chordType <- chordTypeS >>= chordFromString
+            (return . head) $ voicingsInRange tuning chordType note (FretRange lowRange highRange)
+        mResp = liftM Frets mFrets
+    case trace (show mResp) mResp of
+         Nothing -> writeBS $ BS.pack "Failure"
+         Just response -> writeJSON response
+                                
+parseHandler :: Snap ()
+parseHandler = do
+    chordS <- (liftM . liftM) BS.unpack $ getParam "chordString"
+    tuningS <- (liftM . liftM) BS.unpack $ getParam "tuning"
+    lowRangeS <- (liftM . liftM) BS.unpack $ getParam "lowRange"
+    highRangeS <- (liftM . liftM) BS.unpack $ getParam "highRange"
+    let mFrets = do
+            tuning <- tuningS >>= tuningFromString
+            (note, chordType) <- chordS >>= stringToChord
+            lowRange <- lowRangeS >>= readMaybe
+            highRange <- highRangeS >>= readMaybe
             (return . head) $ voicingsInRange tuning chordType note (FretRange lowRange highRange)
         mResp = liftM Frets mFrets
     case trace (show mResp) mResp of
