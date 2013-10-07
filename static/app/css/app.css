@@ -29,15 +29,69 @@
     padding: 0;
 }
 
-table#mainfretboard { position:absolute; top:68px; left:300px; border:1px solid red; }
-table#mainfretboard tr td { border:1px solid black; font-size: 28px; width:46px; height:34px; text-align:center; }
+table#mainfretboard { 
+    position:absolute;
+    top:68px;
+    left:300px;
+    border:1px solid red; 
+}
 
-table#fretclone { position:absolute; top:51px; left:251px; }
-table#fretclone tr td { margin: 0 auto;  border:1px solid transparent; background-color:transparent; font-size:18px; font-weight:bold; width:46px;height:34px; text-align:center; z-index:1; }
+table#mainfretboard tr td { 
+    border:1px solid black;
+    font-size: 28px;
+    width:46px;
+    height:34px;
+    text-align:center;
+}
 
-div.circle { font-size:12pt; margin-left: auto; margin-right: auto; background: #791396; width: 30px; height: 30px; line-height: 30px; border-radius: 50%; text-align:center;}
+table#fretclone { 
+    position:absolute;
+    top:51px;
+    left:251px;
+}
 
-div.fretguidecircle { margin-left: auto; margin-right: auto; background: #000000; width: 15px; height: 15px; line-height: 30px; border-radius: 50%; text-align:center;}
+table#fretclone tr td { 
+    margin: 0 auto;
+    border:1px solid transparent;
+    background-color:transparent;
+    font-size:18px;
+    font-weight:bold;
+    width:46px;
+    height:34px;
+    text-align:center;
+    z-index:1;
+}
 
-.interval-text  { margin-left: auto; margin-right: auto; color: #FFFFFF; }
-.center { margin-left: auto; margin-right: auto; }
+div.circle { 
+    font-size:12pt;
+    margin-left: auto;
+    margin-right: auto;
+    background: #791396;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    text-align:center;
+}
+
+div.fretguidecircle { 
+    margin-left: auto;
+    margin-right: auto;
+    background: #000000;
+    width: 15px;
+    height: 15px;
+    line-height: 30px;
+    border-radius: 50%;
+    text-align:center;
+}
+
+.interval-text  { 
+    margin-left: auto;
+    margin-right: auto;
+    color: #FFFFFF;
+}
+
+.center { 
+    margin-left: auto;
+    margin-right: auto;
+}
