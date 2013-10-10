@@ -40,7 +40,7 @@ table#mainfretboard tr td {
     border:1px solid black;
     font-size: 28px;
     width:46px;
-    height:34px;
+    height:25px;
     text-align:center;
 }
 
@@ -57,7 +57,7 @@ table#fretclone tr td {
     font-size:18px;
     font-weight:bold;
     width:46px;
-    height:34px;
+    height:25px;
     text-align:center;
     z-index:1;
 }
@@ -67,9 +67,9 @@ div.circle {
     margin-left: auto;
     margin-right: auto;
     background: #791396;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
     border-radius: 50%;
     text-align:center;
 }

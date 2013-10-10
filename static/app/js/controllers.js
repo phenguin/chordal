@@ -2,41 +2,18 @@
 
 /* Controllers */
 angular.module('myApp.controllers', []).
-    controller('FretboardCtrl', ['$scope', '$http', function($scope, $http) {
+    controller('FretboardCtrl', ['$scope', '$http', 'Music', function($scope, $http, Music) {
     var domain = "http://localhost:8080";
     $scope.test = "Testval";
 
-    $scope.notes = [
-        { value : 'A', text : 'A' },
-        { value : 'Bb', text : 'B\u266d' },
-        { value : 'C', text : 'C' },
-        { value : 'Db', text : 'D\u266d' },
-        { value : 'D', text : 'D' },
-        { value : 'Eb', text : 'E\u266d' },
-        { value : 'E', text : 'E' },
-        { value : 'F', text : 'F' },
-        { value : 'Gb', text : 'G\u266d' },
-        { value : 'G', text : 'G' },
-        { value : 'Ab', text : 'A\u266d' },
-    ];
+    $scope.notes = Music.notes;
+    $scope.chordTypes = Music.chordTypes;
 
     $scope.note = $scope.notes[0].value;
 
-    $scope.chordTypes = [
-        { value : 'majorTriad', text : 'Major Triad' },
-        { value : 'minorTriad', text : 'Minor Triad' },
-        { value : 'augTriad', text : 'Augmented Triad' },
-        { value : 'dimTriad', text : 'Diminished Triad' },
-        { value : 'maj7chord', text : 'Major 7th Chord' },
-        { value : 'min7chord', text : 'Minor 7th Chord' },
-        { value : 'dom7chord', text : 'Dominant 7th Chord' },
-        { value : 'halfdim7chord', text : 'Half Diminished Chord' },
-        { value : 'fulldim7chord', text : 'Fully Diminished Chord' }
-    ];
-
     $scope.chordType = $scope.chordTypes[0].value;
-    $scope.lowRange = 0
-    $scope.highRange = 4
+    $scope.lowRange = 0;
+    $scope.highRange = 4;
     $scope.tunings = ['standardTuning'];
     $scope.tuning = $scope.tunings[0];
 
