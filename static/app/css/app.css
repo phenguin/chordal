@@ -31,9 +31,8 @@
 
 table#mainfretboard { 
     position:absolute;
-    top:68px;
+    top:93px;
     left:300px;
-    border:1px solid red; 
 }
 
 table#mainfretboard tr td { 
@@ -46,8 +45,30 @@ table#mainfretboard tr td {
 
 table#fretclone { 
     position:absolute;
-    top:51px;
+    top:76px;
     left:251px;
+}
+
+table#fretnumbers { 
+    position:absolute;
+    top:51px;
+    left:261px;
+}
+
+.fontred {
+    color: #FF0000;
+}
+
+.fretselector:hover {
+    border:1px solid black;
+}
+
+table#fretnumbers tr.fretnumber td.fretnumber { 
+    border:0px solid black;
+    font-size: 15px;
+    width:46px;
+    height:25px;
+    text-align:center;
 }
 
 table#fretclone tr td { 

@@ -37,6 +37,13 @@ angular.module('myApp.controllers', []).
 
     };
 
+    $scope.updateRangeAndQuery = function (startFret) {
+        $scope.lowRange = startFret;
+        $scope.highRange = startFret + 4;
+        $scope.parseChord();
+     
+    };
+
     $scope.parseChord = function () {
         var params = {
             chordString : $scope.chordString,

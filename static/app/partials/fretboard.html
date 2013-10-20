@@ -40,6 +40,19 @@
     </div>
 
     <div id='fretboard'>
+
+        <table id="fretnumbers" cellspacing='0'>
+            <tbody>            
+            <tr class="fretnumber">
+                <td class="fretnumber" ng-repeat="j in [0,15] | makeRange">
+                    <div class="fretselector" ng-click = "updateRangeAndQuery(j)" ng-class="{fontred: lowRange <= $index && $index <= highRange}">
+                        {{ j }}
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
         <table id='mainfretboard' cellspacing='0'>
             <tbody>
             <tr ng-repeat="i in [4,3,2,1,0]">
