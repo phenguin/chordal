@@ -29,6 +29,12 @@
     padding: 0;
 }
 
+.border {
+    border:1px solid black;
+    padding:3px;
+    margin:5px;
+}
+
 table#mainfretboard { 
     position:absolute;
     top:93px;
@@ -47,6 +53,19 @@ table#fretclone {
     position:absolute;
     top:76px;
     left:251px;
+}
+
+div#activechords { 
+    position:absolute;
+    text-align:center;
+    width:736px;
+    top:276px;
+    left:297px;
+}
+
+.horizontalcenter {
+    margin-left:auto;
+    margin-right:auto;
 }
 
 table#fretnumbers { 

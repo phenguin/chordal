@@ -17,6 +17,8 @@ angular.module('myApp.controllers', []).
     $scope.tunings = ['standardTuning'];
     $scope.tuning = $scope.tunings[0];
 
+    $scope.active_chords = [];
+    $scope.current_chord = {};
     $scope.response = {};
 
     $scope.getVoicing = function () {
@@ -33,6 +35,7 @@ angular.module('myApp.controllers', []).
               params : params
         }).success(function (data) {
             $scope.response = data;
+            $scope.current_chord = data;
         });
 
     };
@@ -56,7 +59,32 @@ angular.module('myApp.controllers', []).
               method : 'GET',
               params : params
         }).success(function (data) {
-            $scope.response = data;
+            data.chordName = $scope.chordString;
+            $scope.active_chords = [data];
+            $scope.current_chord = $scope.active_chords[0];
+        });
+
+    };
+
+    $scope.setCurrentChord = function (chord) {
+        $scope.current_chord = chord;
+    }
+
+    $scope.parseChordAndAdd = function () {
+        var params = {
+            chordString : $scope.chordString,
+            tuning : $scope.tuning,
+            lowRange : $scope.lowRange,
+            highRange : $scope.highRange
+        };
+
+        $http({ url : domain + '/api/parse_chord',
+              method : 'GET',
+              params : params
+        }).success(function (data) {
+            $scope.active_chords.push(data);
+            data.chordName = $scope.chordString;
+            $scope.current_chord = $scope.active_chords[$scope.active_chords.length - 1];
         });
 
     };
@@ -80,7 +108,7 @@ angular.module('myApp.controllers', []).
     };
 
     $scope.displayFret = function (i,j) {
-        var val = $scope.response["fret_" + i + "_" + j];
+        var val = $scope.current_chord["fret_" + i + "_" + j];
         if (val) {
             return true;
         }
@@ -90,7 +118,7 @@ angular.module('myApp.controllers', []).
     };
 
     $scope.getInterval = function (i,j) {
-        var val = $scope.response["fret_" + i + "_" + j];
+        var val = $scope.current_chord["fret_" + i + "_" + j];
         if (val) {
             var ret_val;
             if (val.interval.length === 2) {
