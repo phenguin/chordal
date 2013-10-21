@@ -70,17 +70,18 @@ voicingInRangeHandler = do
                                 
 parseHandler :: Snap ()
 parseHandler = do
-    chordS <- (liftM . liftM) BS.unpack $ getParam "chordString"
+    chordsS <- (liftM . liftM) BS.unpack $ getParam "queryString"
     tuningS <- (liftM . liftM) BS.unpack $ getParam "tuning"
     lowRangeS <- (liftM . liftM) BS.unpack $ getParam "lowRange"
     highRangeS <- (liftM . liftM) BS.unpack $ getParam "highRange"
     let mFrets = do
             tuning <- tuningS >>= tuningFromString
-            (note, chordType) <- chordS >>= stringToChord
+            parseResults <- chordsS >>= stringToChords
             lowRange <- lowRangeS >>= readMaybe
             highRange <- highRangeS >>= readMaybe
-            (return . head) $ voicingsInRange tuning chordType note (FretRange lowRange highRange)
-        mResp = liftM Frets mFrets
+            let mapf (note, chordType) = head $ voicingsInRange tuning chordType note (FretRange lowRange highRange)
+            return $ map mapf parseResults
+        mResp = liftM (map Frets) mFrets
     case trace (show mResp) mResp of
          Nothing -> writeBS $ BS.pack "Failure"
          Just response -> writeJSON response

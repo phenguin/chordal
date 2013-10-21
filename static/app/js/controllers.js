@@ -47,9 +47,9 @@ angular.module('myApp.controllers', []).
      
     };
 
-    $scope.parseChord = function () {
+    $scope.parseChords = function () {
         var params = {
-            chordString : $scope.chordString,
+            queryString : $scope.chordString,
             tuning : $scope.tuning,
             lowRange : $scope.lowRange,
             highRange : $scope.highRange
@@ -59,8 +59,7 @@ angular.module('myApp.controllers', []).
               method : 'GET',
               params : params
         }).success(function (data) {
-            data.chordName = $scope.chordString;
-            $scope.active_chords = [data];
+            $scope.active_chords = data;
             $scope.current_chord = $scope.active_chords[0];
         });
 
@@ -70,9 +69,9 @@ angular.module('myApp.controllers', []).
         $scope.current_chord = chord;
     }
 
-    $scope.parseChordAndAdd = function () {
+    $scope.parseChordsAndAdd = function () {
         var params = {
-            chordString : $scope.chordString,
+            queryString : $scope.chordString,
             tuning : $scope.tuning,
             lowRange : $scope.lowRange,
             highRange : $scope.highRange
@@ -82,9 +81,8 @@ angular.module('myApp.controllers', []).
               method : 'GET',
               params : params
         }).success(function (data) {
-            $scope.active_chords.push(data);
-            data.chordName = $scope.chordString;
-            $scope.current_chord = $scope.active_chords[$scope.active_chords.length - 1];
+            $scope.active_chords = $scope.active_chords.concat(data);
+            $scope.current_chord = data[data.length - 1];
         });
 
     };

@@ -34,8 +34,8 @@
                 <input ng-model="chordString"></text>
         </div>
         <div>      
-            <button ng-click="parseChord()">Replace!</button>
-            <button ng-click="parseChordAndAdd()">Add!</button>
+            <button ng-click="parseChords()">Replace!</button>
+            <button ng-click="parseChordsAndAdd()">Add!</button>
         </div>
 
     </div>
@@ -82,7 +82,7 @@
     <div id='activechords'>
         <span class="horizontalcenter border" ng-repeat="chord in active_chords">
             <span ng-click="setCurrentChord(chord)">
-                {{ chord.chordName }}
+               Chord:  {{ $index }}
             </span>
         </span>
     </div>
