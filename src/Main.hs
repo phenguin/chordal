@@ -3,6 +3,8 @@ module Main where
 
 import           Control.Applicative
 import           Control.Monad
+import           Data.Maybe (fromMaybe)
+import           Control.Monad.IO.Class
 import           Snap.Core
 import           Snap.Util.FileServe
 import           Snap.Extras.JSON
@@ -12,6 +14,7 @@ import           Text.Read
 import           Debug.Trace
 import           Hasmt.Fretboard
 import           Hasmt.ChordParser
+import           HtmlChordParser
 import qualified Data.ByteString.Char8 as BS
 
 main :: IO ()
@@ -26,6 +29,7 @@ site =
           , ("api/voicing_in_range", voicingInRangeHandler)
           , ("api/parse_chord", parseHandler)
           , ("api/parse_chords_with_voice_leading", parseVLHandler)
+          , ("api/chords_from_url", parseUrlHandler)
           ] <|>
     dir "static" (serveDirectory "./static")
 
@@ -101,6 +105,27 @@ parseVLHandler = do
             highRange <- highRangeS >>= readMaybe
             let fr = FretRange lowRange highRange
             return $ voiceLeadRootedChords tuning parseResults fr
+        mResp = liftM (map Frets) mFrets
+    case trace (show mResp) mResp of
+         Nothing -> writeBS $ BS.pack "Failure"
+         Just response -> writeJSON response
+                                
+parseUrlHandler :: Snap ()
+parseUrlHandler = do
+    urlS <- (liftM . liftM) BS.unpack $ getParam "url"
+    tuningS <- (liftM . liftM) BS.unpack $ getParam "tuning"
+    lowRangeS <- (liftM . liftM) BS.unpack $ getParam "lowRange"
+    highRangeS <- (liftM . liftM) BS.unpack $ getParam "highRange"
+    parseResultsM <- liftIO $ case urlS of
+         Nothing -> return Nothing
+         Just url -> chordsFromUrl url
+    let mFrets = do
+            tuning <- return $ fromMaybe standardTuning (tuningS >>= tuningFromString)
+            parseResults <- parseResultsM
+            lowRange <- return $ fromMaybe 0 (lowRangeS >>= readMaybe)
+            highRange <- return $ fromMaybe 4 (highRangeS >>= readMaybe)
+            let mapf (note, chordType) = head $ voicingsInRange tuning chordType note (FretRange lowRange highRange)
+            return $ map mapf parseResults
         mResp = liftM (map Frets) mFrets
     case trace (show mResp) mResp of
          Nothing -> writeBS $ BS.pack "Failure"

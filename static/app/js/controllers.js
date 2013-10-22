@@ -112,6 +112,30 @@ angular.module('myApp.controllers', []).
         });
 
     };
+    $scope.parseChordsFromUrl = function () {
+        var params = {
+            url : $scope.urlString,
+            tuning : $scope.tuning,
+            lowRange : $scope.lowRange,
+            highRange : $scope.highRange
+        };
+
+        $http({ url : domain + '/api/chords_from_url',
+              method : 'GET',
+              params : params
+        }).success(function (data) {
+
+            _.each(_.range(data.length), function (i) {
+                data[i].chordName = "<chordname>";
+            });
+
+            console.log(data);
+
+            $scope.active_chords = data;
+            $scope.current_chord = data[0];
+        });
+
+    };
     $scope.updateFretboard = function  () {
         var params = { note : $scope.note,
             chordType : $scope.chordType,

@@ -49,41 +49,42 @@
                     <button class="btn-info" ng-show="active_chords.length > 0" ng-click="clearChords()">Clear</button>
                     <span class="border" ng-repeat="chord in active_chords">
                         <span ng-click="setCurrentChord(chord)">
-                             {{ chord.chordName }}
+                            {{ chord.chordName }}
                         </span>
                     </span>
                 </div>
         </div></div>
         <div class="controlscontainer">
             <div class='leftcolumn'>
-            <label>Key:</label> 
-            <select ng-model="note" ng-options="n.value as n.text for n in notes">
-            </select>
+                <label>Key:</label> 
+                <select ng-model="note" ng-options="n.value as n.text for n in notes">
+                </select>
 
-            <label>Chord Type:</label>
-            <select ng-model="chordType" ng-options="ct.value as ct.text for ct in chordTypes">
-            </select>
+                <label>Chord Type:</label>
+                <select ng-model="chordType" ng-options="ct.value as ct.text for ct in chordTypes">
+                </select>
 
-            <label>Tuning:</label>
-            <select ng-model="tuning" ng-options="t for t in tunings">
-            </select>
+                <label>Tuning:</label>
+                <select ng-model="tuning" ng-options="t for t in tunings">
+                </select>
 
-            <label>Low Range:</label>
-            <input ng-model="lowRange"></input>
+                <label>Low Range:</label>
+                <input ng-model="lowRange"></input>
 
-            <label>High Range:</label>
-            <input ng-model="highRange"></input>
+                <label>High Range:</label>
+                <input ng-model="highRange"></input>
             </div>
             <div class='rightcolumn'>
                 <button class="btn-success" ng-click="updateFretboard()">Show all chord notes</button>
-                <div>
-                    <input ng-model="chordString"></text>
-            </div>
-            <div>      
+                <input ng-model="chordString"></input>
                 <button class='btn-success' ng-click="parseChordsAndAdd()">Add to progression</button>
+                <br>
+                <input ng-model="urlString"></input>
+                <button class='btn-success' ng-click="parseChordsFromUrl()">Get chords from url</button>
             </div>
         </div>
-            <div class='centercolumn'></div>
+        <div class='centercolumn'>
+        </div>
 
 
 
