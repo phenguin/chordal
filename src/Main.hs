@@ -25,6 +25,7 @@ site =
           , ("api/chord_notes", chordNotesHandler)
           , ("api/voicing_in_range", voicingInRangeHandler)
           , ("api/parse_chord", parseHandler)
+          , ("api/parse_chords_with_voice_leading", parseVLHandler)
           ] <|>
     dir "static" (serveDirectory "./static")
 
@@ -81,6 +82,25 @@ parseHandler = do
             highRange <- highRangeS >>= readMaybe
             let mapf (note, chordType) = head $ voicingsInRange tuning chordType note (FretRange lowRange highRange)
             return $ map mapf parseResults
+        mResp = liftM (map Frets) mFrets
+    case trace (show mResp) mResp of
+         Nothing -> writeBS $ BS.pack "Failure"
+         Just response -> writeJSON response
+                                
+
+parseVLHandler :: Snap ()
+parseVLHandler = do
+    chordsS <- (liftM . liftM) BS.unpack $ getParam "queryString"
+    tuningS <- (liftM . liftM) BS.unpack $ getParam "tuning"
+    lowRangeS <- (liftM . liftM) BS.unpack $ getParam "lowRange"
+    highRangeS <- (liftM . liftM) BS.unpack $ getParam "highRange"
+    let mFrets = do
+            tuning <- tuningS >>= tuningFromString
+            parseResults <- chordsS >>= stringToChords
+            lowRange <- lowRangeS >>= readMaybe
+            highRange <- highRangeS >>= readMaybe
+            let fr = FretRange lowRange highRange
+            return $ voiceLeadRootedChords tuning parseResults fr
         mResp = liftM (map Frets) mFrets
     case trace (show mResp) mResp of
          Nothing -> writeBS $ BS.pack "Failure"

@@ -43,7 +43,7 @@ angular.module('myApp.controllers', []).
     $scope.updateRangeAndQuery = function (startFret) {
         $scope.lowRange = startFret;
         $scope.highRange = startFret + 4;
-        $scope.parseChord();
+        $scope.parseChords();
      
     };
 
@@ -55,11 +55,22 @@ angular.module('myApp.controllers', []).
             highRange : $scope.highRange
         };
 
-        $http({ url : domain + '/api/parse_chord',
+        $http({ url : domain + '/api/parse_chords_with_voice_leading',
               method : 'GET',
               params : params
         }).success(function (data) {
+            var chordNames;
+
+            chordNames = $scope.chordString.replace(/\s+/, ' ').split(' ');
+
+            _.each(_.range($scope.active_chords.length), function (i) {
+                data[i].chordName = chordNames[i];
+            });
+
             $scope.active_chords = data;
+
+            console.log($scope.active_chords);
+
             $scope.current_chord = $scope.active_chords[0];
         });
 
@@ -67,6 +78,11 @@ angular.module('myApp.controllers', []).
 
     $scope.setCurrentChord = function (chord) {
         $scope.current_chord = chord;
+    }
+
+    $scope.clearChords = function () {
+        $scope.active_chords = [];
+        $scope.current_chord = {};
     }
 
     $scope.parseChordsAndAdd = function () {
@@ -81,6 +97,16 @@ angular.module('myApp.controllers', []).
               method : 'GET',
               params : params
         }).success(function (data) {
+            var chordNames;
+
+            chordNames = $scope.chordString.replace(/\s+/, ' ').split(' ');
+
+            _.each(_.range(data.length), function (i) {
+                data[i].chordName = chordNames[i];
+            });
+
+            console.log(data);
+
             $scope.active_chords = $scope.active_chords.concat(data);
             $scope.current_chord = data[data.length - 1];
         });
@@ -95,7 +121,7 @@ angular.module('myApp.controllers', []).
                   method : 'GET',
                   params : params
             }).success(function (data) {
-                $scope.response = data;
+                $scope.current_chord = data;
             });
 
     };

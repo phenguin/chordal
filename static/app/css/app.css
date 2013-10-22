@@ -1,5 +1,27 @@
 /* app css stylesheet */
 
+.banner {
+    padding: 10px 0 10px 0;
+    background-color: #221E1F;
+    color: white;
+    text-align: center;
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 3em;
+}
+
+body {
+    background-color: #DDDDDD;
+}
+
+.container-fluid {
+    width: 1000px;
+    background-color: #FFFFFF;
+    margin: 0 auto;
+    text-align: center;
+}
 .menu {
     list-style: none;
     border-bottom: 0.1em solid black;
@@ -30,15 +52,24 @@
 }
 
 .border {
-    border:1px solid black;
+    border:2px solid #ddd;
+    border-radius: 5px;
+    margin: 0 0 0 8px;
+    padding: 1px;
+    -moz-border-radius: 5px;
+    background-color: #eee;
     padding:3px;
     margin:5px;
 }
 
 table#mainfretboard { 
-    position:absolute;
-    top:93px;
-    left:300px;
+    margin-left: 15%
+}
+
+.fretclonecontainer {
+    width: 1px;
+    background: red;
+    margin: 0 auto;
 }
 
 table#mainfretboard tr td { 
@@ -50,28 +81,16 @@ table#mainfretboard tr td {
 }
 
 table#fretclone { 
-    position:absolute;
-    top:76px;
-    left:251px;
+    margin: -182px 0 0 10%;
 }
 
 div#activechords { 
-    position:absolute;
     text-align:center;
-    width:736px;
-    top:276px;
-    left:297px;
-}
-
-.horizontalcenter {
-    margin-left:auto;
-    margin-right:auto;
+    margin: 10px 0 10px 0;
 }
 
 table#fretnumbers { 
-    position:absolute;
-    top:51px;
-    left:261px;
+    margin: 0 20px 0 10%;
 }
 
 .fontred {
@@ -79,10 +98,14 @@ table#fretnumbers {
 }
 
 .fretselector:hover {
-    border:1px solid black;
+    background-color: #9e7a7a;
 }
 
-table#fretnumbers tr.fretnumber td.fretnumber { 
+.fretnumber a:hover {
+    text-decoration: none;
+}
+
+th.fretnumber { 
     border:0px solid black;
     font-size: 15px;
     width:46px;
@@ -91,7 +114,6 @@ table#fretnumbers tr.fretnumber td.fretnumber {
 }
 
 table#fretclone tr td { 
-    margin: 0 auto;
     border:1px solid transparent;
     background-color:transparent;
     font-size:18px;
@@ -102,11 +124,33 @@ table#fretclone tr td {
     z-index:1;
 }
 
+div.controlscontainer {
+    margin-top: 10px;
+    padding: 15px;
+    border: 2px dashed black;
+    text-align: left;
+    overflow: hidden;
+}
+
+div.leftcolumn {
+    float: left;
+    width: 33%;
+}
+
+div.rightcolumn {
+    float: right;
+    width: 33%;
+}
+
+div.centercolumn {
+    margin: 0 34% 0 34%;
+}
+
 div.circle { 
     font-size:12pt;
     margin-left: auto;
     margin-right: auto;
-    background: #791396;
+    background: #854044;
     width: 25px;
     height: 25px;
     line-height: 25px;
@@ -135,3 +179,16 @@ div.fretguidecircle {
     margin-left: auto;
     margin-right: auto;
 }
+
+#fbcontainer {
+    text-align: center;
+    border: 1px dashed black;
+    margin: 0 auto;
+    position: relative;
+    padding-top: 50px;
+}
+
+#fretboard {
+    margin: 0 auto;
+}
+

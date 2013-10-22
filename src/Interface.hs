@@ -17,6 +17,14 @@ instance ToJSON ApiResponse where
                 let fretstr = T.pack $ "fret_" ++ show sn ++ "_" ++ show fn in
                     fretstr .= (object ["active" .= True, "interval" .= show interval])
 
+-- TODO: Write this better.. sometime all this unsafe crap will bite you in the ass..
+voiceLeadRootedChords :: Tuning -> [(Note, Chord)] -> FretRange -> [Voicing]
+voiceLeadRootedChords _ [] _ = []
+voiceLeadRootedChords t [(n,c)] fr = [head $ voicingsInRange t c n fr]
+voiceLeadRootedChords t ((n,c):cs) fr = scanl foldf seed cs
+    where seed = head $ voiceLeadRootedChords t [(n,c)] fr
+          foldf v (n',c') = closestChordToVoicing t v n' c'
+
 chordFromString :: String -> Maybe Chord
 chordFromString s 
     | s == "majorTriad" = Just majorTriad

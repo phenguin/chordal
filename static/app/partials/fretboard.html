@@ -5,88 +5,90 @@
 <meta charset="utf-8" />
 </head>
 <body ng-app>
-
+<div class="banner">
+    <h1>Chord Finder Thing</h1>
+</div>
 <div class="container-fluid">
     <div class="row-fluid">
-        <div class="span2">
-            <!--Sidebar content-->
 
-            Key: 
+        <div class="fretboard"><div id="fbcontainer">
+
+
+                <table id='mainfretboard' cellspacing='0'>
+                    <tbody>
+                    <tr ng-repeat="i in [4,3,2,1,0]">
+                        <td ng-repeat="j in [0,14] | makeRange">                
+                            <div class='fretguidecircle' ng-show="displayFretmarker(i,j)">
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+                <table id='fretclone' cellspacing='0'>
+                    <tbody>
+                    <tr>
+                        <th class="fretnumber" ng-repeat="j in [0,15] | makeRange">
+                            <div class="fretselector" ng-click = "updateRangeAndQuery(j)" ng-class="{fontred: lowRange <= $index && $index <= highRange}">
+                                {{ j }}
+                            </div>
+                        </th>
+                    </tr>
+                    <tr ng-repeat="i in [5,4,3,2,1,0]">
+                        <td ng-repeat="j in [0,15] | makeRange">
+                            <div class='circle' ng-show="displayFret(i,j)">
+                                <div class='interval-text'>{{ getInterval(i,j) }}</div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div id='activechords'>
+                    <button class="btn-info" ng-show="active_chords.length > 0" ng-click="clearChords()">Clear</button>
+                    <span class="border" ng-repeat="chord in active_chords">
+                        <span ng-click="setCurrentChord(chord)">
+                             {{ chord.chordName }}
+                        </span>
+                    </span>
+                </div>
+        </div></div>
+        <div class="controlscontainer">
+            <div class='leftcolumn'>
+            <label>Key:</label> 
             <select ng-model="note" ng-options="n.value as n.text for n in notes">
             </select>
 
-            Chord Type:
+            <label>Chord Type:</label>
             <select ng-model="chordType" ng-options="ct.value as ct.text for ct in chordTypes">
             </select>
 
-            Tuning:
+            <label>Tuning:</label>
             <select ng-model="tuning" ng-options="t for t in tunings">
             </select>
 
-            Low Range:
+            <label>Low Range:</label>
             <input ng-model="lowRange"></input>
 
-            High Range:
+            <label>High Range:</label>
             <input ng-model="highRange"></input>
-
-            <button ng-click="updateFretboard()">Generate!</button>
-            <div>
-                <input ng-model="chordString"></text>
+            </div>
+            <div class='rightcolumn'>
+                <button class="btn-success" ng-click="updateFretboard()">Show all chord notes</button>
+                <div>
+                    <input ng-model="chordString"></text>
+            </div>
+            <div>      
+                <button class='btn-success' ng-click="parseChordsAndAdd()">Add to progression</button>
+            </div>
         </div>
-        <div>      
-            <button ng-click="parseChords()">Replace!</button>
-            <button ng-click="parseChordsAndAdd()">Add!</button>
-        </div>
+            <div class='centercolumn'></div>
+
+
 
     </div>
 
-    <div id="fbcontainer">
-        <div id='fretboard'>
-
-            <table id="fretnumbers" cellspacing='0'>
-                <tbody>            
-                <tr class="fretnumber">
-                    <td class="fretnumber" ng-repeat="j in [0,15] | makeRange">
-                        <div class="fretselector" ng-click = "updateRangeAndQuery(j)" ng-class="{fontred: lowRange <= $index && $index <= highRange}">
-                            {{ j }}
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-            <table id='mainfretboard' cellspacing='0'>
-                <tbody>
-                <tr ng-repeat="i in [4,3,2,1,0]">
-                    <td ng-repeat="j in [0,14] | makeRange">                
-                        <div class='fretguidecircle' ng-show="displayFretmarker(i,j)">
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-
-            <table id='fretclone' cellspacing='0'>
-                <tbody>
-                <tr ng-repeat="i in [5,4,3,2,1,0]">
-                    <td ng-repeat="j in [0,15] | makeRange">
-                        <div class='circle' ng-show="displayFret(i,j)">
-                            <div class='interval-text'>{{ getInterval(i,j) }}</div>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-    </div>
-    <div id='activechords'>
-        <span class="horizontalcenter border" ng-repeat="chord in active_chords">
-            <span ng-click="setCurrentChord(chord)">
-               Chord:  {{ $index }}
-            </span>
-        </span>
-    </div>
-  </div>
 </div>
 </body>
 </html>
