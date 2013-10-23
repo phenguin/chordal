@@ -2,9 +2,12 @@
 
 /* Controllers */
 angular.module('myApp.controllers', []).
-    controller('FretboardCtrl', ['$scope', '$http', 'Music', function($scope, $http, Music) {
+    controller('FretboardCtrl', ['$scope', '$http', 'Music','$routeParams', function($scope, $http, Music, $routeParams) {
     var domain = "http://localhost:8080";
-    $scope.test = "Testval";
+    var encodedurl=$routeParams.encodedurl;
+    var url;
+    console.log(encodedurl);
+    console.log($scope.url);
 
     $scope.notes = Music.notes;
     $scope.chordTypes = Music.chordTypes;
@@ -112,6 +115,7 @@ angular.module('myApp.controllers', []).
         });
 
     };
+
     $scope.parseChordsFromUrl = function () {
         var params = {
             url : $scope.urlString,
@@ -136,6 +140,16 @@ angular.module('myApp.controllers', []).
         });
 
     };
+
+    if (encodedurl) {
+        url = atob(encodedurl);
+        $scope.urlString = url;
+        $scope.parseChordsFromUrl();
+        console.log("Active chords:");
+        console.log($scope.active_chords);
+    }
+
+
     $scope.updateFretboard = function  () {
         var params = { note : $scope.note,
             chordType : $scope.chordType,

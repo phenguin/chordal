@@ -38,3 +38,5 @@ myAppServices.factory('Music', function () {
 
     return { notes : notes, chordTypes : chordTypes };
 });
+
+
