@@ -1,0 +1,38 @@
+<div class="fbcontainer">
+
+    <table class="fretnumbers" cellspacing='0'>
+        <tbody>
+        <tr>
+            <th class="fretnumber" ng-show="displayfretnums" ng-repeat="j in [0,numfrets] | makeRange">
+                <div ng-click="updateRangeAndQuery(j)" ng-class="{fontred: lowRange <= $index && $index <= highRange}">
+                    {{ j }}
+                </div>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+
+    <table class='fretgridlines' cellspacing='0'>
+        <tbody>
+        <tr ng-repeat="i in [0, numstrings - 2] | makeRange | reverse">
+            <td ng-repeat="j in [0, numfrets - 1] | makeRange">                
+                <div class='fretguidecircle' ng-show="displayFretmarker(i,j)">
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table class='fretnodes' cellspacing='0'>
+        <tbody>
+        <tr ng-repeat="i in [0, numstrings - 1] | makeRange | reverse">
+            <td ng-repeat="j in [0,numfrets - 1] | makeRange">
+                <div class='circle' ng-show="displayFret(i,j)">
+                    <div class='interval-text'>{{ getInterval(i,j) }}</div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>

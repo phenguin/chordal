@@ -22,6 +22,7 @@ body {
     margin: 0 auto;
     text-align: center;
 }
+
 .menu {
     list-style: none;
     border-bottom: 0.1em solid black;
@@ -62,17 +63,11 @@ body {
     margin:5px;
 }
 
-table#mainfretboard { 
-    margin-left: 15%
+table.fretgridlines { 
+    margin-left: 49px;
 }
 
-.fretclonecontainer {
-    width: 1px;
-    background: red;
-    margin: 0 auto;
-}
-
-table#mainfretboard tr td { 
+table.fretgridlines tr td { 
     border:1px solid black;
     font-size: 28px;
     width:46px;
@@ -80,8 +75,13 @@ table#mainfretboard tr td {
     text-align:center;
 }
 
-table#fretclone { 
-    margin: -182px 0 0 10%;
+table.fretnumbers {
+    margin-bottom: 8px;
+    margin-left: 0;
+}
+
+table.fretnodes { 
+    margin: -152px 0 0 0;
 }
 
 div#activechords { 
@@ -89,15 +89,7 @@ div#activechords {
     margin: 10px 0 10px 0;
 }
 
-table#fretnumbers { 
-    margin: 0 20px 0 10%;
-}
-
-.fontred {
-    color: #FF0000;
-}
-
-.fretselector:hover {
+th.fretnumber div:hover {
     background-color: #9e7a7a;
 }
 
@@ -108,12 +100,12 @@ table#fretnumbers {
 th.fretnumber { 
     border:0px solid black;
     font-size: 15px;
-    width:46px;
-    height:25px;
+    width:47px;
+    height:26px;
     text-align:center;
 }
 
-table#fretclone tr td { 
+table.fretnodes tr td { 
     border:1px solid transparent;
     background-color:transparent;
     font-size:18px;
@@ -180,15 +172,22 @@ div.fretguidecircle {
     margin-right: auto;
 }
 
-#fbcontainer {
+.fbcontainer {
     text-align: center;
-    border: 1px dashed black;
-    margin: 0 auto;
+    border: 1px solid black;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     position: relative;
-    padding-top: 50px;
+    display : table;
 }
 
-#fretboard {
-    margin: 0 auto;
+.fretboard > * > .fbcontainer {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fretboard {
+    text-align: center;
 }
 

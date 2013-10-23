@@ -150,20 +150,7 @@ angular.module('myApp.controllers', []).
 
     };
 
-    $scope.displayFretmarker = function (i,j) {
-        return (i === 2 && _.contains([2,4,6,8], j)) ||
-            (_.contains([1,3], i) && j === 11);
-    };
 
-    $scope.displayFret = function (i,j) {
-        var val = $scope.current_chord["fret_" + i + "_" + j];
-        if (val) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    };
 
     $scope.getInterval = function (i,j) {
         var val = $scope.current_chord["fret_" + i + "_" + j];
