@@ -8,12 +8,12 @@
 <div class="banner">
     <h1>Chords for Url</h1>
 </div>
-<div ng-show="active_chords.length == 0">Your chords are loading fool!</div>
+<div ng-show="!active_chords._resolved">Your chords are loading fool!</div>
 <div class="container-fluid">
     <div class="row-fluid">
 
         <div ng-repeat="chord in active_chords" class="fretboard">
-            <fretboard displayfretnums='true' fretinfo='chord' numfrets='14' numstrings='6'></fretboard> 
+            <fretboard displayfretnums='true' fretinfo='chord' numfrets='4' numstrings='6'></fretboard> 
         </div>
 
     </div>

@@ -93,6 +93,10 @@ th.fretnumber div:hover {
     background-color: #9e7a7a;
 }
 
+.fretnumber {
+    cursor: default;
+}
+
 .fretnumber a:hover {
     text-decoration: none;
 }
@@ -165,6 +169,7 @@ div.fretguidecircle {
     margin-left: auto;
     margin-right: auto;
     color: #FFFFFF;
+    cursor: default;
 }
 
 .center { 
