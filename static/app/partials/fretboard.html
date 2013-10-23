@@ -11,49 +11,17 @@
 <div class="container-fluid">
     <div class="row-fluid">
 
-        <div class="fretboard"><div id="fbcontainer">
-
-
-                <table id='mainfretboard' cellspacing='0'>
-                    <tbody>
-                    <tr ng-repeat="i in [4,3,2,1,0]">
-                        <td ng-repeat="j in [0,14] | makeRange">                
-                            <div class='fretguidecircle' ng-show="displayFretmarker(i,j)">
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-
-
-                <table id='fretclone' cellspacing='0'>
-                    <tbody>
-                    <tr>
-                        <th class="fretnumber" ng-repeat="j in [0,15] | makeRange">
-                            <div class="fretselector" ng-click = "updateRangeAndQuery(j)" ng-class="{fontred: lowRange <= $index && $index <= highRange}">
-                                {{ j }}
-                            </div>
-                        </th>
-                    </tr>
-                    <tr ng-repeat="i in [5,4,3,2,1,0]">
-                        <td ng-repeat="j in [0,15] | makeRange">
-                            <div class='circle' ng-show="displayFret(i,j)">
-                                <div class='interval-text'>{{ getInterval(i,j) }}</div>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-
-                <div id='activechords'>
-                    <button class="btn-info" ng-show="active_chords.length > 0" ng-click="clearChords()">Clear</button>
-                    <span class="border" ng-repeat="chord in active_chords">
-                        <span ng-click="setCurrentChord(chord)">
-                            {{ chord.chordName }}
-                        </span>
+        <div class="fretboard">
+            <fretboard numfrets='14' numstrings='6'></fretboard> 
+            <div id='activechords'>
+                <button class="btn-info" ng-show="active_chords.length > 0" ng-click="clearChords()">Clear</button>
+                <span class="border" ng-repeat="chord in active_chords">
+                    <span ng-click="setCurrentChord(chord)">
+                        {{ chord.chordName }}
                     </span>
-                </div>
-        </div></div>
+                </span>
+            </div>
+        </div>
         <div class="controlscontainer">
             <div class='leftcolumn'>
                 <label>Key:</label> 

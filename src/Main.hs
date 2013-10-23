@@ -31,7 +31,7 @@ site =
           , ("api/parse_chords_with_voice_leading", parseVLHandler)
           , ("api/chords_from_url", parseUrlHandler)
           ] <|>
-    dir "static" (serveDirectory "./static")
+    dir "static" (serveDirectory "./static/app")
 
 echoHandler :: Snap ()
 echoHandler = do
