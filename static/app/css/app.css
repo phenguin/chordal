@@ -8,8 +8,12 @@
 }
 
 h1 {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Lucida Grande, Lucida Sans Unicode, sans-serif;
     font-size: 3em;
+}
+
+input, button, select, textarea {
+    font-family: Lucida Grande, Lucida Sans Unicode, sans-serif;
 }
 
 body {
@@ -131,6 +135,16 @@ div.controlscontainer {
 div.leftcolumn {
     float: left;
     width: 33%;
+}
+
+div.leftvsplit {
+    float: left;
+    width: 48%;
+}
+
+div.rightvsplit {
+    float: right;
+    width: 48%;
 }
 
 div.rightcolumn {

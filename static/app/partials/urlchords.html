@@ -12,8 +12,18 @@
 <div class="container-fluid">
     <div class="row-fluid">
 
-        <div ng-repeat="chord in active_chords" class="fretboard">
-            <fretboard displayfretnums='true' fretinfo='chord' numfrets='4' numstrings='6'></fretboard> 
+        <div class='leftvsplit'>
+            <div ng-repeat="chord in active_chords | every: 2:0" class="fretboard">
+                <h2> {{ chord.name }} </h2>
+                <fretboard displayfretnums='true' fretinfo='chord.fret_info' numfrets='4' numstrings='6'></fretboard> 
+            </div>
+        </div>
+
+        <div class='rightvsplit'>
+            <div ng-repeat="chord in active_chords | every: 2:1" class="fretboard">
+                <h2> {{ chord.name }} </h2>
+                <fretboard displayfretnums='true' fretinfo='chord.fret_info' numfrets='4' numstrings='6'></fretboard> 
+            </div>
         </div>
 
     </div>

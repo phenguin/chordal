@@ -109,6 +109,8 @@ parseVLHandler = do
     case trace (show mResp) mResp of
          Nothing -> writeBS $ BS.pack "Failure"
          Just response -> writeJSON response
+
+data Hole = Hole
                                 
 parseUrlHandler :: Snap ()
 parseUrlHandler = do
@@ -124,9 +126,9 @@ parseUrlHandler = do
             parseResults <- parseResultsM
             lowRange <- return $ fromMaybe 0 (lowRangeS >>= readMaybe)
             highRange <- return $ fromMaybe 4 (highRangeS >>= readMaybe)
-            let mapf (note, chordType) = head $ voicingsInRange tuning chordType note (FretRange lowRange highRange)
+            let mapf ((note, chordType), label) = (label, head $ voicingsInRange tuning chordType note (FretRange lowRange highRange))
             return $ map mapf parseResults
-        mResp = liftM (map Frets) mFrets
+        mResp = liftM (map (\(x,y) -> (x, Frets y))) (mFrets :: Maybe [(String, Voicing)])
     case trace (show mResp) mResp of
          Nothing -> writeBS $ BS.pack "Failure"
          Just response -> writeJSON response

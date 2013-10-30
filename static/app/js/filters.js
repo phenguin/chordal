@@ -32,5 +32,20 @@ angular.module('myApp.filters', []).
     return function (input) {
         return input.reverse();
     };
+}).
+    filter('every', function () {
+    return function (inputlist, n, offset) {
+        var res = [];
+
+        if (typeof inputlist !== 'object' || !inputlist.hasOwnProperty('length'))
+            return inputlist;
+
+        for (var i=0; i < inputlist.length; i++) {
+            if (i % n === offset)
+                res.push(inputlist[i]);
+        }
+        return res;
+
+    };
 });
 

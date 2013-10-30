@@ -59,7 +59,16 @@ myAppServices.factory('Music', function () {
         promise._resolved = false;
 
         return promise.then(function (response) {
-            var res = response.data;
+            var res = [];
+            console.log(response.data);
+
+            _.each(response.data, function (x) {
+                res.push({
+                    name : x[0],
+                    fret_info : x[1]
+                });
+            });
+
             res._resolved = true;
             return res;
         });
