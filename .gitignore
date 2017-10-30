@@ -1,4 +1,5 @@
 log/
 dist/
 .tern-port
+.stack-work/
 tags
